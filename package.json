@@ -7,6 +7,9 @@
     "test": "mocha './**/*.test.js'",
     "start": "node ./bin/www"
   },
+  "mocha": {
+    "spec": "./**/*.test.js"
+  },
   "dependencies": {
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",

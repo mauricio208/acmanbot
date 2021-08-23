@@ -17,20 +17,29 @@ function using(accountName, userData){
 }
 
 function release(accountName){
-  // mark account in db as unlocked
+  const account = getAccount(accountName);
+  if (account && account.locked) {
+    account.locked = false
+    account.user = {}
+    setAccount(accountName, account)
+    return { status: "OK", desc: "account released successfully"}
+  }
+
+  if (!account) {
+    return { status: "ERR", desc: "account doesn't exist"}
+  }
+  
+  return { status: "INFO", desc: "account free"}
 }
 
-function free(){
-  // search on db and return non locked accounts
-}
 
-function onuse() {
-  // search on db and return u
+function accounts( locked = true ){
+  const allAccounts = getAllAccounts();
+  return Object.entries(allAccounts).filter(e=>Boolean(e[1].locked) != locked)
 }
 
 export {
   using,
   release,
-  free,
-  onuse
+  accounts
 }
