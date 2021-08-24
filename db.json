@@ -3,7 +3,10 @@
         "email": "email@example.com",
         "pass": "123123",
         "locked": true,
-        "user": {}
+        "user": {
+            "name": "mauricio",
+            "date": "now"
+        }
     },
     "cousi2": {
         "email": "email@example.com",
