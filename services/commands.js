@@ -32,9 +32,9 @@ function release(accountName){
   return { status: "INFO", desc: "account free"}
 }
 
-function accounts( locked = true ){
+function accounts( unlocked = true ){
   const allAccounts = getAllAccounts();
-  return Object.entries(allAccounts).filter(e=>Boolean(e[1].locked) != locked)
+  return Object.entries(allAccounts).filter(e=>Boolean(e[1].locked) != unlocked)
 }
 
 export {
