@@ -9,7 +9,7 @@ function using(accountName, userData){
     result = { status: "ERR", desc: "account in use", data: {user: account.user}}
     wasLocked = true
   }
-
+  
   if (account && !account.locked) {
     account.locked = true
     account.user = userData
@@ -17,17 +17,28 @@ function using(accountName, userData){
     result = { status: "OK", desc: `account *${accountName}* locked successfully`}
   }
   
-  const text = wasLocked?`\n> In use by ${result.data.user.name} since ${result.data.user.date}`:`\n> ${result.desc}`
-  const formattedMessage = {
-    "blocks": [
-      {
-        "type": "section",
-        "text": {
-          "type": "mrkdwn",
-          "text": text
-        }
+  const text = wasLocked?`\n> In use by *${result.data.user.name}* since ${result.data.user.date}`:`\n> ${result.desc}`
+  
+  let blocks = [
+    {
+      "type": "section",
+      "text": {
+        "type": "mrkdwn",
+        "text": text
       }
-    ]
+    }
+  ]
+  if (result.status == 'OK') {
+    blocks.push({
+      "type": "section",
+      "text": {
+        "type": "mrkdwn",
+        "text": `${account.email} : ${account.pass}`
+      }
+    })
+  }
+  const formattedMessage = {
+    "blocks": blocks
   }
 
   return { raw: result, formatted: formattedMessage}
