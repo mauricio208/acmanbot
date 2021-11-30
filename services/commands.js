@@ -82,7 +82,7 @@ function accounts( unlocked = true ){
 
   let text = `> ${unlocked?'Available':'Locked'} accounts`
   if (allAccounts.length == 0) {
-    text = '*No available accounts*'
+    text = unlocked?'*No available accounts*':'*No locked accounts*'
   }
   for( let ac of allAccounts){
     text += unlocked?`\n> *${ac[0]}* -> ${ac[1].email} : ${ac[1].pass}`:  `\n> *${ac[0]}* -> in use by ${ac[1].user.name} since ${ac[1].user.date}`
