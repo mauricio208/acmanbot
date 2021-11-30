@@ -10,7 +10,7 @@ app.command('/lock', async ({ command, ack, respond }) => {
   const commandParameters = command.text.split(' ')
   const userData = {
     name :command.user_name,
-    date: new Date()
+    date: Math.round(Number(new Date())/1000)
   }
   await respond(commands.using(commandParameters[0], userData).formatted);
 });

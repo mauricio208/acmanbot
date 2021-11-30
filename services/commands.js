@@ -85,7 +85,11 @@ function accounts( unlocked = true ){
     text = unlocked?'*No available accounts*':'*No locked accounts*'
   }
   for( let ac of allAccounts){
-    text += unlocked?`\n> *${ac[0]}* -> ${ac[1].email} : ${ac[1].pass}`:  `\n> *${ac[0]}* -> in use by *${ac[1].user.name}* since ${ac[1].user.date}`
+
+    let date = `<!date^${ac[1].user.date}^{date_short} at {time}^https://example.com/|Feb 18, 2014 PST>`
+    text += unlocked?
+    `\n> *${ac[0]}* -> ${ac[1].email} : ${ac[1].pass}`:  
+    `\n> *${ac[0]}* -> in use by *${ac[1].user.name}* since ${date}`
   }
   const formattedMessage = {
     "blocks": [
