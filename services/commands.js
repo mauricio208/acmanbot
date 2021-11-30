@@ -87,7 +87,7 @@ function accounts( unlocked = true ){
   for( let ac of allAccounts){
     text += unlocked?
     `\n> *${ac[0]}* -> ${ac[1].email} : ${ac[1].pass}`:  
-    `\n> *${ac[0]}* -> in use by *${ac[1].user.name}* since <!date^${ac[1].user.date}^{date_short} at {time}^https://example.com/|Feb 18, 2014 PST>`
+    `\n> *${ac[0]}* -> in use by *${ac[1].user.name}* since <!date^${ac[1].user.date}^{date_short} at {time}|${ac[1].user.date}>`
   }
   const formattedMessage = {
     "blocks": [
