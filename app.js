@@ -3,11 +3,10 @@ import express from 'express';
 import path from 'path';
 import cookieParser from 'cookie-parser';
 import logger from 'morgan';
-
 // import indexRouter from './routes/index.js';
-import commandsRouter from './routes/commands.js';
-
+import { receiver as slackCommandsReceiver } from './routes/commands.js';
 import { URL } from 'url';
+
 const __filename = new URL('', import.meta.url).pathname;
 const __dirname = new URL('.', import.meta.url).pathname;
 
@@ -15,16 +14,16 @@ global.appRoot = path.resolve(__dirname);
 var app = express();
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
+// app.set('views', path.join(__dirname, 'views'));
+// app.set('view engine', 'jade');
 
-app.use(logger('dev'));
+
+app.use(slackCommandsReceiver.router);
+// app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', commandsRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -39,7 +38,7 @@ app.use(function(err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.render('error');
+  res.send()
 });
 
 export default app;

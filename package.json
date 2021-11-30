@@ -5,12 +5,14 @@
   "type": "module",
   "scripts": {
     "test": "mocha './**/*.test.js'",
-    "start": "node ./bin/www.js"
+    "start": "node ./bin/www.js",
+    "dev": "node ./bin/www.js"
   },
   "mocha": {
     "spec": "./**/*.test.js"
   },
   "dependencies": {
+    "@slack/bolt": "^3.6.0",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
     "express": "~4.16.1",

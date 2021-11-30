@@ -1,8 +1,9 @@
-import config from '../config.js'
-import { join } from 'path'
 import JSONdb from 'simple-json-db'
+import * as fs from 'fs';
 
-const db = new JSONdb('/home/mauricio/as/acman/db.json')
+ 
+fs.writeFileSync('db.json', process.env.ACCOUNTS);
+const db = new JSONdb('db.json')
 
 function getAccount(accountName){
   return db.get(accountName)

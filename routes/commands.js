@@ -1,14 +1,35 @@
-import express from 'express';
 import * as commands from '../services/commands.js'
-const router = express.Router();
+import { slackApp } from '../services/slack.js'
 
-/* GET home page. */
-router.get('/free', function(req, res, next) {
-  res.send(commands.accounts())
+
+const { app, receiver } = slackApp();
+
+
+app.command('/lock', async ({ command, ack, respond }) => {
+  await ack();
+  const commandParameters = command.text.split(' ')
+  const userData = {
+    name :command.user_name,
+    date: new Date()
+  }
+  await respond(commands.using(commandParameters[0], userData).formatted);
 });
 
-router.get('/locked', function(req, res, next) {
-  res.send(commands.accounts(false))
+app.command('/release', async ({ command, ack, respond }) => {
+  await ack();
+  const commandParameters = command.text.split(' ')
+  await respond(commands.release(commandParameters[0]).formatted);
 });
 
-export default router;
+app.command('/free', async ({ command, ack, respond }) => {
+  await ack();
+  // await respond(JSON.stringify(commands.accounts()));
+  await respond(commands.accounts().formatted);
+});
+
+app.command('/locked', async ({ command, ack, respond }) => {
+  await ack();
+  await respond(commands.accounts(false).formatted);
+});
+
+export { receiver }
